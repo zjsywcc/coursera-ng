@@ -1,0 +1,10 @@
+.Error{color: red;}
+.Ignored{color: green;}
+
+.formError {
+  border-color: red;
+}
+
+.formSuccess {
+  border-color: green;
+}
