@@ -26,16 +26,16 @@
     var list = this;
     var menuList = MenuSearchService;
     var searchTerm = "";
-    list.empty = false;
 
     list.searchItems = function (searchTerm) {
       var promise = menuList.getMatchedMenuItems(searchTerm);
-
       promise.then(function (response) {
         list.found = [];
-        if(searchTerm != "") {
+        if(searchTerm !== undefined && searchTerm !== "") {
           list.found = response.data.menu_items.filter(function (value) {
-            return value.description.indexOf(searchTerm) !== -1;
+            var description = value.description.toLowerCase();
+            searchTerm = searchTerm.toLowerCase();
+            return description.indexOf(searchTerm) !== -1;
           });
         } else {
           list.empty = "yes";
