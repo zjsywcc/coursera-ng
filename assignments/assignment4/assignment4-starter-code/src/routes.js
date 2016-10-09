@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-angular.module('ShoppingList')
+angular.module('MenuApp')
 .config(RoutesConfig);
 
 RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -20,27 +20,31 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   })
 
   // Premade list page
-  .state('mainList', {
-    url: '/main-list',
-    templateUrl: 'src/shoppinglist/templates/main-shoppinglist.template.html',
-    controller: 'MainShoppingListController as mainList',
+  .state('categories', {
+    url: '/categories',
+    templateUrl: 'src/shoppinglist/templates/categories.template.html',
+    controller: 'CategoriesController as categories',
     resolve: {
-      items: ['ShoppingListService', function (ShoppingListService) {
-        return ShoppingListService.getItems();
+      categories: ['MenuDataService', function (MenuDataService) {
+        return MenuDataService.getAllCategories()
+          .then(function (response) {
+            console.log(response.data);
+            return response.data;
+          });
       }]
     }
   })
 
-  .state('itemDetail', {
-    url: '/item-detail/{itemId}',
-    templateUrl: 'src/shoppinglist/templates/item-detail.template.html',
-    controller: 'ItemDetailController as itemDetail',
+  .state('items', {
+    url: '/items/{categoryShortName}',
+    templateUrl: 'src/shoppinglist/templates/items.template.html',
+    controller: 'ItemsController as items',
     resolve: {
-      item: ['$stateParams', 'ShoppingListService',
-            function ($stateParams, ShoppingListService) {
-              return ShoppingListService.getItems()
-                .then(function (items) {
-                  return items[$stateParams.itemId];
+      items: ['$stateParams', 'MenuDataService',
+            function ($stateParams, MenuDataService) {
+              return MenuDataService.getItemsForCategory($stateParams.categoryShortName)
+                .then(function (response) {
+                  return response.data.menu_items;
                 });
             }]
     }
