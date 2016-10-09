@@ -2,13 +2,13 @@
 'use strict';
 
 angular.module('MenuApp')
-.controller('ItemsController', ItemsController);
+.controller('ItemDetailController', ItemDetailController);
 
 
-ItemsController.$inject = ['items'];
-function ItemsController(items) {
-  var items = this;
-  items.items = items;
+ItemDetailController.$inject = ['items'];
+function ItemDetailController(items) {
+  var itemDetail = this;
+  itemDetail.items = items;
 }
 
 })();
