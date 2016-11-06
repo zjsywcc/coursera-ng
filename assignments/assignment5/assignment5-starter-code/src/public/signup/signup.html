@@ -1,0 +1,82 @@
+<div class="container">
+  <h2 id="menu-categories-title" class="text-center">Sign up to our newsletter</h2>
+  <div>
+    Please provide some details so that we can send you the latesting happenings about your favourite dish.
+    <form name="signupForm" novalidate>
+      <label for="firstName">First Name: </label>
+      <input type="text"
+        name="firstName"
+        ng-model="signupCtrl.firstName"
+        placeholder="First Name"
+        minlength=2
+        ng-maxlength=10
+        required>
+      <span ng-if="signupForm.firstName.$error.required && signupForm.firstName.$touched">
+        I cannot subsribe you if you don't have a first name
+      </span>
+      <span ng-if="signupForm.firstName.$error.minlength && signupForm.firstName.$touched">
+        Surely your name is longer than that (2 letters)
+      </span>
+      <span ng-if="signupForm.firstName.$error.maxlength && signupForm.firstName.$touched">
+        Surely your name is shorter than that (10 letters)
+      </span>
+      <br>
+      <label for="lastName">Last Name: </label>
+      <input type="text"
+        name="lastName"
+        ng-model="signupCtrl.lastName"
+        placeholder="Last Name"
+        minlength=2
+        ng-maxlength="15"
+        required>
+      <span ng-if="signupForm.lastName.$error.required && signupForm.lastName.$touched">
+        I cannot subsribe you if you don't have a last name
+      </span>
+      <span ng-if="signupForm.lastName.$error.minlength && signupForm.lastName.$touched">
+        Surely your name is longer than that (2 letters)
+      </span>
+      <span ng-if="signupForm.lastName.$error.maxlength && signupForm.lastName.$touched">
+        Surely your name is shorter than that (15 letters)
+      </span>
+      <br>
+      <label for="email">E-mail: </label>
+      <input type="email"
+        name="email"
+        ng-model="signupCtrl.email"
+        placeholder="E-mail Address"
+        required>
+      <span ng-if="signupForm.email.$invalid && signupForm.email.$touched">
+        I cannot send you the newsletter you if you don't have an e-mail address (eg: name@domain)
+      </span>
+      <br>
+      <label for="phone">Phone Number: </label>
+      <input type="text"
+        name="phone"
+        ng-model="signupCtrl.phone"
+        placeholder="Ph: ####-###-###"
+        pattern="(\d{4})-(\d{3})-(\d{3})">
+      <span ng-if="signupForm.phone.$invalid && signupForm.phone.$touched">
+        The mobile phone number must look like ####-###-### (eg: 0413-023-456)
+      </span>
+      <br>
+      <label for="favourite">Favourite Dish: </label>
+      <input type="text"
+        name="favourite"
+        ng-model="signupCtrl.favourite"
+        placeholder="Favourite menu item"
+        minlength="2"
+        pattern="[a-zA-Z]{1,2}\d{1,2}"
+        required>
+      <span ng-if="signupForm.favourite.$error.required && signupForm.favourite.$touched">
+        I won't know what news to tell you if you don't pick a favourite dish
+      </span>
+      <span ng-if="signupForm.favourite.$error.pattern && signupForm.favourite.$touched">
+        Dishes are identified by a combination of one or two letters and one or two digits (eg. G7 or PD11)
+      </span>
+      <span ng-if="!signupCtrl.dishExists">No such menu number exists</span>
+      <br>
+      <input type="submit" value="Sign Up" ng-disabled="signupForm.$invalid" ng-click="signupCtrl.signup()">
+    </form>
+    <div ng-if='signupCtrl.message'>{{signupCtrl.message}}</div>
+  </div>
+</div>

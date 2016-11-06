@@ -1,0 +1,26 @@
+<div class="container">
+  <h2 id="menu-categories-title" class="text-center">Registration Information</h2>
+  <div class="text-center">
+    <div ng-if='regCtrl.saved'>
+      First Name: {{regCtrl.firstName}}<br>
+      Last Name: {{regCtrl.lastName}}<br>
+      E-mail Address: {{regCtrl.email}}<br>
+      Phone: {{regCtrl.phone}}<br>
+      Favourite Dish:<br>
+      <div>
+      <div class="menu-item-photo">
+        <div>{{regCtrl.menu_item.short_name}}</div>
+        <img class="img-responsive" width="250" height="150" ng-src="{{regCtrl.favourite_image}}" alt="Loading ...">
+      </div>
+      <div class="menu-item-description">
+        <h3 class="menu-item-title">{{regCtrl.menu_item.name}}</h3>
+        <p class="menu-item-details">{{regCtrl.menu_item.description}}</p>
+
+      </div>
+    </div>
+    </div>
+    <div ng-if='!regCtrl.saved'>
+      Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a>
+    </div>
+  </div>
+</div>
